@@ -1,0 +1,1917 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sombras de Valdoria - Manual do Jogador</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=MedievalSharp&display=swap');
+        
+        :root {
+            --gold: #d4a843;
+            --dark-gold: #b8860b;
+            --blood-red: #8b0000;
+            --dark-bg: #1a1a2e;
+            --darker-bg: #0f0f1a;
+            --text-light: #e8e8e8;
+            --text-muted: #a0a0a0;
+            --border-color: #3a3a5c;
+            --accent-blue: #4a6fa5;
+            --accent-green: #2d5a27;
+            --accent-purple: #6b3fa0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Crimson Text', Georgia, serif;
+            background: var(--darker-bg);
+            color: var(--text-light);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        /* CAPA */
+        .cover {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(180deg, #0a0a15 0%, #1a1a2e 50%, #0a0a15 100%);
+            position: relative;
+            overflow: hidden;
+            page-break-after: always;
+        }
+        
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(139, 0, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(75, 0, 130, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 20%, rgba(212, 168, 67, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .cover-ornament {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 2rem;
+            letter-spacing: 1rem;
+        }
+        
+        .cover h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: var(--gold);
+            text-shadow: 
+                0 0 20px rgba(212, 168, 67, 0.5),
+                0 0 40px rgba(212, 168, 67, 0.3),
+                2px 2px 4px rgba(0, 0, 0, 0.8);
+            letter-spacing: 0.3rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .cover .subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            letter-spacing: 0.5rem;
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+        }
+        
+        .cover .version {
+            font-size: 1.1rem;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            padding: 0.5rem 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .cover .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+        
+        .cover .feature-tag {
+            background: rgba(212, 168, 67, 0.1);
+            border: 1px solid var(--gold);
+            padding: 0.3rem 1rem;
+            font-size: 0.9rem;
+            color: var(--gold);
+        }
+        
+        .cover .philosophy {
+            max-width: 500px;
+            text-align: left;
+            margin-top: 2rem;
+        }
+        
+        .cover .philosophy h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .cover .philosophy li {
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            list-style: none;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .cover .philosophy li::before {
+            content: '⚔';
+            position: absolute;
+            left: 0;
+            color: var(--blood-red);
+        }
+        
+        /* NAVEGACAO */
+        .toc {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            page-break-after: always;
+        }
+        
+        .toc h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 1rem;
+        }
+        
+        .toc-list {
+            list-style: none;
+        }
+        
+        .toc-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 1px dotted var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        .toc-list a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .toc-list a:hover {
+            color: var(--gold);
+        }
+        
+        .toc-list .page-num {
+            color: var(--gold);
+            font-weight: 600;
+        }
+        
+        /* CONTEUDO PRINCIPAL */
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .chapter {
+            margin-bottom: 4rem;
+            page-break-before: always;
+            padding-top: 2rem;
+        }
+        
+        .chapter-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--gold);
+        }
+        
+        .chapter-number {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            color: var(--gold);
+            letter-spacing: 0.5rem;
+            text-transform: uppercase;
+        }
+        
+        .chapter h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin: 1rem 0;
+        }
+        
+        .chapter h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin: 2rem 0 1rem;
+            padding-left: 1rem;
+            border-left: 3px solid var(--blood-red);
+        }
+        
+        .chapter h4 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: var(--accent-blue);
+            margin: 1.5rem 0 0.5rem;
+        }
+        
+        .chapter p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+        
+        /* TABELAS */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: rgba(26, 26, 46, 0.8);
+        }
+        
+        th {
+            background: var(--blood-red);
+            color: var(--gold);
+            padding: 0.8rem;
+            text-align: left;
+            font-family: 'Cinzel', serif;
+        }
+        
+        td {
+            padding: 0.6rem 0.8rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        tr:hover {
+            background: rgba(212, 168, 67, 0.05);
+        }
+        
+        /* BOXES */
+        .info-box {
+            background: rgba(74, 111, 165, 0.1);
+            border: 1px solid var(--accent-blue);
+            border-left: 4px solid var(--accent-blue);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .info-box.warning {
+            background: rgba(139, 0, 0, 0.1);
+            border-color: var(--blood-red);
+            border-left-color: var(--blood-red);
+        }
+        
+        .info-box.tip {
+            background: rgba(45, 90, 39, 0.1);
+            border-color: var(--accent-green);
+            border-left-color: var(--accent-green);
+        }
+        
+        .info-box h4 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* SKILL CARDS */
+        .skill-card {
+            background: rgba(26, 26, 46, 0.9);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .skill-card h4 {
+            color: var(--gold);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .skill-stats {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 0.5rem 0;
+        }
+        
+        .skill-stat {
+            background: rgba(212, 168, 67, 0.1);
+            padding: 0.2rem 0.8rem;
+            font-size: 0.9rem;
+            color: var(--gold);
+        }
+        
+        /* CLASS CARDS */
+        .class-card {
+            background: rgba(26, 26, 46, 0.9);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .class-card h3 {
+            border-left: none;
+            padding-left: 0;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+        
+        .class-card .class-role {
+            text-align: center;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        
+        .class-card .difficulty {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .difficulty-badge {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            font-size: 0.9rem;
+            border-radius: 20px;
+        }
+        
+        .difficulty-easy {
+            background: var(--accent-green);
+            color: white;
+        }
+        
+        .difficulty-medium {
+            background: var(--accent-blue);
+            color: white;
+        }
+        
+        .difficulty-hard {
+            background: var(--blood-red);
+            color: white;
+        }
+        
+        .difficulty-very-hard {
+            background: var(--accent-purple);
+            color: white;
+        }
+        
+        /* CODE BLOCKS */
+        code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.5rem;
+            font-family: 'Courier New', monospace;
+            color: var(--gold);
+        }
+        
+        pre {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border-left: 3px solid var(--gold);
+        }
+        
+        pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        /* LISTS */
+        ul, ol {
+            margin: 1rem 0 1rem 2rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* QUOTE */
+        blockquote {
+            border-left: 4px solid var(--gold);
+            padding: 1rem 2rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--text-muted);
+            background: rgba(212, 168, 67, 0.05);
+        }
+        
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 2px solid var(--gold);
+            margin-top: 4rem;
+        }
+        
+        .footer .ornament {
+            color: var(--gold);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* PRINT STYLES */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+            
+            .cover {
+                background: white;
+                color: black;
+            }
+            
+            .cover h1 {
+                color: #333;
+                text-shadow: none;
+            }
+            
+            table {
+                background: white;
+            }
+            
+            th {
+                background: #333;
+                color: white;
+            }
+            
+            .skill-card, .class-card, .info-box {
+                background: #f5f5f5;
+                border-color: #ccc;
+            }
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .cover h1 {
+                font-size: 2.5rem;
+            }
+            
+            .chapter h2 {
+                font-size: 1.8rem;
+            }
+            
+            .skill-stats {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ==================== CAPA ==================== -->
+<div class="cover">
+    <div class="cover-ornament">⚔ 🛡 ⚔</div>
+    <h1>SOMBRAS DE VALDORIA</h1>
+    <div class="subtitle">RPG de Texto Profissional</div>
+    <div class="version">Manual do Jogador - Versao 1.0</div>
+    
+    <div class="features">
+        <span class="feature-tag">8 Classes</span>
+        <span class="feature-tag">40 Habilidades</span>
+        <span class="feature-tag">Sistema Elemental</span>
+        <span class="feature-tag">Buffs/Debuffs</span>
+        <span class="feature-tag">Inventario</span>
+        <span class="feature-tag">Sobrevivencia</span>
+        <span class="feature-tag">Loja & Ferreiro</span>
+        <span class="feature-tag">Mapas Procedurais</span>
+        <span class="feature-tag">Quests</span>
+        <span class="feature-tag">Save System</span>
+    </div>
+    
+    <div class="philosophy">
+        <h3>⚔ Filosofia do Jogo </h3>
+        <ul>
+            <li>Progressao Constante - Sempre se sinta mais forte</li>
+            <li>Decisoes Estrategicas - Cada escolha importa</li>
+            <li>Risco vs Recompensa - Recompensas proporcionais</li>
+            <li>Especializacao de Builds - Cada classe e unica</li>
+            <li>Escalabilidade Previsivel - Sem power creep</li>
+        </ul>
+    </div>
+    
+    <div class="cover-ornament" style="margin-top: 3rem;">⚔  ⚔</div>
+</div>
+
+<!-- ==================== SUMARIO ==================== -->
+<div class="toc">
+    <h2>📜 SUMARIO 📜</h2>
+    <ul class="toc-list">
+        <li><a href="#intro">1. Introducao</a> <span class="page-num">Pag 3</span></li>
+        <li><a href="#tutorial">2. Como Jogar - Tutorial Completo</a> <span class="page-num">Pag 4</span></li>
+        <li><a href="#classes">3. Sistema de Classes</a> <span class="page-num">Pag 6</span></li>
+        <li><a href="#habilidades">4. Habilidades por Classe</a> <span class="page-num">Pag 8</span></li>
+        <li><a href="#combate">5. Sistema de Combate</a> <span class="page-num">Pag 12</span></li>
+        <li><a href="#elemental">6. Sistema Elemental</a> <span class="page-num">Pag 14</span></li>
+        <li><a href="#buffs">7. Sistema de Buffs e Debuffs</a> <span class="page-num">Pag 15</span></li>
+        <li><a href="#inventario">8. Sistema de Inventario</a> <span class="page-num">Pag 17</span></li>
+        <li><a href="#sobrevivencia">9. Sistema de Sobrevivencia</a> <span class="page-num">Pag 19</span></li>
+        <li><a href="#loja">10. Loja e Economia</a> <span class="page-num">Pag 21</span></li>
+        <li><a href="#exploracao">11. Exploracao e Mapa</a> <span class="page-num">Pag 23</span></li>
+        <li><a href="#quests">12. Sistema de Quests</a> <span class="page-num">Pag 25</span></li>
+        <li><a href="#eventos">13. Eventos Aleatorios</a> <span class="page-num">Pag 26</span></li>
+        <li><a href="#save">14. Save System</a> <span class="page-num">Pag 27</span></li>
+        <li><a href="#dicas">15. Dicas e Estrategias</a> <span class="page-num">Pag 28</span></li>
+        <li><a href="#tabelas">16. Tabelas de Referencia</a> <span class="page-num">Pag 31</span></li>
+        <li><a href="#curiosidades">17. Curiosidades</a> <span class="page-num">Pag 33</span></li>
+    </ul>
+</div>
+
+<!-- ==================== CONTEUDO ==================== -->
+<div class="content">
+
+<!-- CAPITULO 1: INTRODUCAO -->
+<div class="chapter" id="intro">
+    <div class="chapter-header">
+        <div class="chapter-number">Capitulo I</div>
+        <h2>INTRODUCAO</h2>
+    </div>
+    
+    <h3>Bem-vindo a Sombras de Valdoria!</h3>
+    <p>Sombras de Valdoria e um RPG de texto profissional desenvolvido inteiramente em Portugol Studio. Neste jogo, voce explorara masmorras geradas proceduralmente, combatera monstros terriveis, coletara itens poderosos e se tornara cada vez mais forte.</p>
+    
+    <h3>Caracteristicas do Jogo</h3>
+    <ul>
+        <li><strong>8 Classes Unicas</strong> com identidades distintas</li>
+        <li><strong>40 Habilidades</strong> (5 por classe) com balanceamento estrategico</li>
+        <li><strong>Sistema Elemental</strong> com fraquezas e resistencias</li>
+        <li><strong>Barra de Stagger</strong> para controle de combate</li>
+        <li><strong>Sistema de Buffs/Debuffs</strong> com duracao por turnos</li>
+        <li><strong>Inventario com Peso e Slots</strong> para decisoes estrategicas</li>
+        <li><strong>Ciclo Dia/Noite</strong> que afeta gameplay</li>
+        <li><strong>Sistema de Fome</strong> para sobrevivencia</li>
+        <li><strong>Loja e Ferreiro</strong> com economia dinamica</li>
+        <li><strong>Mapas Gerados Aleatoriamente</strong> com exploracao por menu</li>
+        <li><strong>Quests e Eventos Aleatorios</strong> para imersao</li>
+        <li><strong>Save System</strong> via codigo anotavel</li>
+    </ul>
+    
+    <div class="info-box">
+        <h4>📖 Sobre o Portugol Studio</h4>
+        <p>Portugol Studio e uma linguagem de programacao educacional brasileira, criada para facilitar o aprendizado de logica de programacao. Todo o codigo deste RPG foi escrito em Portugol, demonstrando que e possivel criar jogos complexos mesmo com ferramentas educacionais.</p>
+    </div>
+</div>
+
+<!-- CAPITULO 2: COMO JOGAR -->
+<div class="chapter" id="tutorial">
+    <div class="chapter-header">
+        <div class="chapter-number">Capitulo II</div>
+        <h2>COMO JOGAR - TUTORIAL COMPLETO</h2>
+    </div>
+    
+    <h3>Iniciando o Jogo</h3>
+    <p>Ao iniciar o jogo, voce vera a tela principal:</p>
+    <pre><code>=== SOMBRAS DE VALDORIA ===
+v1.0
+
+[1] Novo Jogo
+[2] Carregar Jogo</code></pre>
+    
+    <h3>Passo 1: Criar Personagem</h3>
+    <ol>
+        <li><strong>Digite seu nome</strong> - Escolha um nome para seu heroi</li>
+        <li><strong>Escolha sua classe</strong> - 8 classes disponiveis, cada uma com habilidades unicas</li>
+        <li><strong>Receba itens iniciais</strong> - Pocoes e comida para comecar sua jornada</li>
+    </ol>
+    
+    <h3>Passo 2: Tutorial de Combate</h3>
+    <p>O primeiro combate e um tutorial que ensina:</p>
+    <ul>
+        <li><strong>[1] Atacar</strong> - Ataque basico com sua arma</li>
+        <li><strong>[2] Habilidades</strong> - Use habilidades especiais da sua classe</li>
+        <li><strong>[3] Itens</strong> - Use pocoes e consumiveis</li>
+        <li><strong>[4] Fugir</strong> - Tente escapar do combate</li>
+    </ul>
+    
+    <h3>Passo 3: Exploracao</h3>
+    <p>Apos o tutorial, voce entra no modo de exploracao:</p>
+    <pre><code>================================
+  SOMBRAS DE VALDORIA
+================================
+Jogador: [Nome]
+Classe: Guerreiro | Nivel: 1
+HP: 175/175 | MP: 90/90
+Ouro: 50g | Fome: 100
+Tempo: Dia
+Regiao: Floresta Sombria
+================================</code></pre>
+    
+    <h3>Controles de Exploracao</h3>
+    <table>
+        <tr><th>Tecla</th><th>Acao</th></tr>
+        <tr><td>W</td><td>Mover para cima</td></tr>
+        <tr><td>S</td><td>Mover para baixo</td></tr>
+        <tr><td>A</td><td>Mover para esquerda</td></tr>
+        <tr><td>D</td><td>Mover para direita</td></tr>
+        <tr><td>0</td><td>Voltar ao menu</td></tr>
+    </table>
+    
+    <h3>Simbolos do Mapa</h3>
+    <table>
+        <tr><th>Simbolo</th><th>Significado</th></tr>
+        <tr><td>@</td><td>Seu personagem</td></tr>
+        <tr><td>E</td><td>Inimigo</td></tr>
+        <tr><td>B</td><td>Bau</td></tr>
+        <tr><td>L</td><td>Loja</td></tr>
+        <tr><td>S</td><td>Saida (proximo mapa)</td></tr>
+        <tr><td>T</td><td>Arvore (recursos)</td></tr>
+        <tr><td>(espaco)</td><td>Caminho livre</td></tr>
+        <tr><td>.</td><td>Terreno intransitavel</td></tr>
+    </table>
+    
+    <h3>Menu Principal</h3>
+    <table>
+        <tr><th>Opcao</th><th>Funcao</th></tr>
+        <tr><td>[1] Explorar</td><td>Navegar pelo mapa</td></tr>
+        <tr><td>[2] Inventario</td><td>Gerenciar itens</td></tr>
+        <tr><td>[3] Status</td><td>Ver atributos</td></tr>
+        <tr><td>[4] Quests</td><td>Ver missoes</td></tr>
+        <tr><td>[5] Loja</td><td>Comprar itens</td></tr>
+        <tr><td>[6] Salvar</td><td>Gerar save code</td></tr>
+        <tr><td>[7] Sair</td><td>Sair do jogo</td></tr>
+    </table>
+</div>
+
+<!-- CAPITULO 3: CLASSES -->
+<div class="chapter" id="classes">
+    <div class="chapter-header">
+        <div class="chapter-number">Capitulo III</div>
+        <h2>SISTEMA DE CLASSES</h2>
+    </div>
+    
+    <p>Cada classe tem uma identidade unica e 5 habilidades que sao desbloqueadas conforme o nivel sobe (uma por nivel, do 1 ao 5).</p>
+    
+    <!-- GUERREIRO -->
+    <div class="class-card">
+        <h3>⚔ Guerreiro</h3>
+        <div class="class-role">Pressao fisica + Resistencia</div>
+        <div class="difficulty"><span class="difficulty-badge difficulty-easy">Dificuldade: Facil</span></div>
+        
+        <table>
+            <tr><th>Atributo</th><th>Valor</th></tr>
+            <tr><td>Forca</td><td>8</td></tr>
+            <tr><td>Defesa</td><td>7</td></tr>
+            <tr><td>Inteligencia</td><td>3</td></tr>
+            <tr><td>Agilidade</td><td>4</td></tr>
+            <tr><td>Vitalidade</td><td>6</td></tr>
+        </table>
+        
+        <p><strong>Arma Inicial:</strong> Espada Longa (15 dano)</p>
+        <p><strong>Estilo de Jogo:</strong> O Guerreiro e a classe mais direta. Causa dano fisico pesado e resiste a muito dano. Ideal para iniciantes.</p>
+    </div>
+    
+    <!-- MAGO -->
+    <div class="class-card">
+        <h3>🔮 Mago</h3>
+        <div class="class-role">Burst magico + Controle</div>
+        <div class="difficulty"><span class="difficulty-badge difficulty-medium">Dificuldade: Media</span></div>
+        
+        <table>
+            <tr><th>Atributo</th><th>Valor</th></tr>
+            <tr><td>Forca</td><td>3</td></tr>
+            <tr><td>Defesa</td><td>4</td></tr>
+            <tr><td>Inteligencia</td><td>9</td></tr>
+            <tr><td>Agilidade</td><td>4</td></tr>
+            <tr><td>Vitalidade</td><td>5</td></tr>
+        </table>
+        
+        <p><strong>Arma Inicial:</strong> Cajado Arcano (10 dano)</p>
+        <p><strong>Estilo de Jogo:</strong> O Mago causa dano magico massivo e controla o campo de batalha com debuffs. Fragil mas poderoso.</p>
+    </div>
+    
+    <!-- LADINO -->
+    <div class="class-card">
+        <h3>🗡 Ladino</h3>
+        <div class="class-role">Critico + Evasao</div>
+        <div class="difficulty"><span class="difficulty-badge difficulty-hard">Dificuldade: Alta</span></div>
+        
+        <table>
+            <tr><th>Atributo</th><th>Valor</th></tr>
+            <tr><td>Forca</td><td>5</td></tr>
+            <tr><td>Defesa</td><td>4</td></tr>
+            <tr><td>Inteligencia</td><td>4</td></tr>
+            <tr><td>Agilidade</td><td>9</td></tr>
+            <tr><td>Vitalidade</td><td>4</td></tr>
+        </table>
+        
+        <p><strong>Arma Inicial:</strong> Adaga Dupla (12 dano)</p>
+        <p><strong>Estilo de Jogo:</strong> O Ladino depende de criticos e esquiva. Alto risco, alta recompensa. Requer gerenciamento cuidadoso.</p>
+    </div>
+    
+    <!-- PALADINO -->
+    <div class="class-card">
+        <h3>✨ Paladino</h3>
+        <div class="class-role">Sustain + Protecao</div>
+        <div class="difficulty"><span class="difficulty-badge difficulty-easy">Dificuldade: Facil</span></div>
+        
+        <table>
+            <tr><th>Atributo</th><th>Valor</th></tr>
+            <tr><td>Forca</td><td>6</td></tr>
+            <tr><td>Defesa</td><td>7</td></tr>
+            <tr><td>Inteligencia</td><td>5</td></tr>
+            <tr><td>Agilidade</td><td>3</td></tr>
+            <tr><td>Vitalidade</td><td>7</td></tr>
+        </table>
+        
+        <p><strong>Arma Inicial:</strong> Martelo Sagrado (12 dano)</p>
+        <p><strong>Estilo de Jogo:</strong> O Paladino se cura e se protege. Excelente sobrevivencia, mas dano moderado.</p>
+    </div>
+    
+    <!-- ARQUEIRO -->
+    <div class="class-card">
+        <h3>🏹 Arqueiro</h3>
+        <div class="class-role">Precisao + Controle</div>
+        <div class="difficulty"><span class="difficulty-badge difficulty-medium">Dificuldade: Media</span></div>
+        
+        <table>
+            <tr><th>Atributo</th><th>Valor</th></tr>
+            <tr><td>Forca</td><td>5</td></tr>
+            <tr><td>Defesa</td><td>4</td></tr>
+            <tr><td>Inteligencia</td><td>4</td></tr>
+            <tr><td>Agilidade</td><td>8</td></tr>
+            <tr><td>Vitalidade</td><td>4</td></tr>
+        </table>
+        
+        <p><strong>Arma Inicial:</strong> Arco Curto (13 dano)</p>
+        <p><strong>Estilo de Jogo:</strong> O Arqueiro ataca com precisao e controle. Dano consistente e habilidades de stun.</p>
+    </div>
+    
+    <!-- DRUIDA -->
+    <div class="class-card">
+        <h3>🌿 Druida</h3>
+        <div class="class-role">Regeneracao + Transformacao</div>
+        <div class="difficulty"><span class="difficulty-badge difficulty-medium">Dificuldade: Media</span></div>
+        
+        <table>
+            <tr><th>Atributo</th><th>Valor</th></tr>
+            <tr><td>Forca</td><td>5</td></tr>
+            <tr><td>Defesa</td><td>6</td></tr>
+            <tr><td>Inteligencia</td><td>6</td></tr>
+            <tr><td>Agilidade</td><td>4</td></tr>
+            <tr><td>Vitalidade</td><td>7</td></tr>
+        </table>
+        
+        <p><strong>Arma Inicial:</strong> Cajado Natural (10 dano)</p>
+        <p><strong>Estilo de Jogo:</strong> O Druida se regenera e se transforma em urso. Sustentacao a longo prazo.</p>
+    </div>
+    
+    <!-- NECROMANTE -->
+    <div class="class-card">
+        <h3>💀 Necromante</h3>
+        <div class="class-role">Drenagem + Debuffs</div>
+        <div class="difficulty"><span class="difficulty-badge difficulty-hard">Dificuldade: Alta</span></div>
+        
+        <table>
+            <tr><th>Atributo</th><th>Valor</th></tr>
+            <tr><td>Forca</td><td>4</td></tr>
+            <tr><td>Defesa</td><td>4</td></tr>
+            <tr><td>Inteligencia</td><td>8</td></tr>
+            <tr><td>Agilidade</td><td>4</td></tr>
+            <tr><td>Vitalidade</td><td>5</td></tr>
+        </table>
+        
+        <p><strong>Arma Inicial:</strong> Cajado Sombrio (10 dano)</p>
+        <p><strong>Estilo de Jogo:</strong> O Necromante drena vida e mana dos inimigos. Poderoso mas fragil.</p>
+    </div>
+    
+    <!-- MONGE -->
+    <div class="class-card">
+        <h3>👊 Monge</h3>
+        <div class="class-role">Combos + Ritmo</div>
+        <div class="difficulty"><span class="difficulty-badge difficulty-very-hard">Dificuldade: Muito Alta</span></div>
+        
+        <table>
+            <tr><th>Atributo</th><th>Valor</th></tr>
+            <tr><td>Forca</td><td>7</td></tr>
+            <tr><td>Defesa</td><td>5</td></tr>
+            <tr><td>Inteligencia</td><td>4</td></tr>
+            <tr><td>Agilidade</td><td>7</td></tr>
+            <tr><td>Vitalidade</td><td>5</td></tr>
+        </table>
+        
+        <p><strong>Arma Inicial:</strong> Luvas de Combate (11 dano)</p>
+        <p><strong>Estilo de Jogo:</strong> O Monge usa combos e turnos extras. Requer timing perfeito e gerenciamento de recursos.</p>
+    </div>
+</div>
+
+<!-- CAPITULO 4: HABILIDADES -->
+<div class="chapter" id="habilidades">
+    <div class="chapter-header">
+        <div class="chapter-number">Capitulo IV</div>
+        <h2>HABILIDADES POR CLASSE</h2>
+    </div>
+    
+    <h3> GUERREIRO</h3>
+    
+    <div class="skill-card">
+        <h4>1. Golpe Pesado (Nivel 1)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 10 MP</span>
+            <span class="skill-stat">Cooldown: 1 turno</span>
+            <span class="skill-stat">Dano: 150%</span>
+            <span class="skill-stat">Stagger: +20%</span>
+        </div>
+        <p>Um golpe devastador. Burst inicial confiavel. Precisao de 95%.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>2. Postura Defensiva (Nivel 2)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 18 MP</span>
+            <span class="skill-stat">Cooldown: 5 turnos</span>
+            <span class="skill-stat">Duracao: 3 turnos</span>
+        </div>
+        <p>-40% dano recebido. Penalidade: -15% dano causado durante postura. Tank temporario.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>3. Grito de Guerra (Nivel 3)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 20 MP</span>
+            <span class="skill-stat">Cooldown: 5 turnos</span>
+            <span class="skill-stat">Duracao: 4 turnos</span>
+        </div>
+        <p>+25% dano por 4 turnos. Nao acumula consigo mesmo.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>4. Redemoinho (Nivel 4)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 28 MP</span>
+            <span class="skill-stat">Cooldown: 4 turnos</span>
+            <span class="skill-stat">Dano: 180%</span>
+        </div>
+        <p>Controle de stagger. Contra bosses: stagger reduzido para 25%.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>5. Execucao (Nivel 5)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 40 MP</span>
+            <span class="skill-stat">Cooldown: 7 turnos</span>
+        </div>
+        <p>110% dano (alvo >30% HP) / 300% (alvo <30% HP). Maximo 35% da vida maxima do boss.</p>
+    </div>
+    
+    <h3> MAGO</h3>
+    
+    <div class="skill-card">
+        <h4>1. Dardo Mistico (Nivel 1)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 12 MP</span>
+            <span class="skill-stat">Cooldown: 1 turno</span>
+            <span class="skill-stat">Dano: 130% magico</span>
+        </div>
+        <p>Ignora 20% da defesa. Ataque magico basico.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>2. Escudo Arcano (Nivel 2)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 20 MP</span>
+            <span class="skill-stat">Cooldown: 5 turnos</span>
+            <span class="skill-stat">Duracao: 4 turnos</span>
+        </div>
+        <p>Escudo: 50 + INT*2. Escudos iguais renovam, nao acumulam.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>3. Nevasca (Nivel 3)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 30 MP</span>
+            <span class="skill-stat">Cooldown: 6 turnos</span>
+            <span class="skill-stat">Duracao: 5 turnos</span>
+        </div>
+        <p>-30% precisao inimigo. Contra bosses: reducao cai para 15%. Muda ambiente para Nevasca.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>4. Tempestade (Nivel 4)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 40 MP</span>
+            <span class="skill-stat">Cooldown: 5 turnos</span>
+            <span class="skill-stat">Dano: 200% magico</span>
+            <span class="skill-stat">Elemento: Raio</span>
+        </div>
+        <p>20% chance de aplicar Choque. Burst elemental.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>5. Dreno de Mana (Nivel 5)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 25 MP</span>
+            <span class="skill-stat">Cooldown: 3 turnos</span>
+            <span class="skill-stat">Dano: 140%</span>
+        </div>
+        <p>Recupera 50% do custo em mana. Nao pode gerar mana infinita.</p>
+    </div>
+    
+    <h3>🗡 LADINO</h3>
+    
+    <div class="skill-card">
+        <h4>1. Punhalada (Nivel 1)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 8 MP</span>
+            <span class="skill-stat">Cooldown: 1 turno</span>
+            <span class="skill-stat">Dano: 80%</span>
+            <span class="skill-stat">Critico: 50%</span>
+        </div>
+        <p>Multiplicador critico 2x. Dano medio real: 120%.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>2. Esquiva (Nivel 2)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 16 MP</span>
+            <span class="skill-stat">Cooldown: 5 turnos</span>
+            <span class="skill-stat">Duracao: 2 turnos</span>
+        </div>
+        <p>+40% evasao por 2 turnos.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>3. Bomba de Fumaca (Nivel 3)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 24 MP</span>
+            <span class="skill-stat">Cooldown: 6 turnos</span>
+            <span class="skill-stat">Duracao: 1 turno</span>
+        </div>
+        <p>Invisibilidade por 1 turno. Habilidades em area ainda atingem. Proximo ataque e critico.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>4. Veneno (Nivel 4)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 22 MP</span>
+            <span class="skill-stat">Cooldown: 4 turnos</span>
+            <span class="skill-stat">Duracao: 5 turnos</span>
+        </div>
+        <p>4% HP atual/turno (normal), 2% (elite), 1% (boss). Muito forte contra inimigos comuns.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>5. Assalto (Nivel 5)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 35 MP</span>
+            <span class="skill-stat">Cooldown: 6 turnos</span>
+            <span class="skill-stat">Dano: 140%</span>
+        </div>
+        <p>Cura 15% do dano. Ouro extra 8-15%. Versatil.</p>
+    </div>
+    
+    <h3>✨ PALADINO</h3>
+    
+    <div class="skill-card">
+        <h4>1. Golpe de Luz (Nivel 1)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 12 MP</span>
+            <span class="skill-stat">Cooldown: 1 turno</span>
+            <span class="skill-stat">Dano: 120%</span>
+            <span class="skill-stat">Elemento: Luz</span>
+        </div>
+        <p>Vs Trevas: 2.5x dano. Ataque sagrado.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>2. Cura Sagrada (Nivel 2)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 30 MP</span>
+            <span class="skill-stat">Cooldown: 5 turnos</span>
+        </div>
+        <p>Cura 30% HP maxima. Nao usar 2 turnos seguidos.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>3. Aura de Protecao (Nivel 3)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 25 MP</span>
+            <span class="skill-stat">Cooldown: 1 uso por combate</span>
+        </div>
+        <p>+20 Defesa permanente. Nao acumula.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>4. Julgamento (Nivel 4)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 28 MP</span>
+            <span class="skill-stat">Cooldown: 4 turnos</span>
+            <span class="skill-stat">Dano: 130%</span>
+        </div>
+        <p>-50% ataque inimigo por 1 turno. Ataque que enfraquece.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>5. Ressurreicao (Nivel 5)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 100% MP atual</span>
+            <span class="skill-stat">Cooldown: 999</span>
+        </div>
+        <p>Revive com 100% HP, remove debuffs. 1 uso por combate. Skill mais perigosa do jogo.</p>
+    </div>
+    
+    <h3> ARQUEIRO</h3>
+    
+    <div class="skill-card">
+        <h4>1. Tiro Rapido (Nivel 1)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 10 MP</span>
+            <span class="skill-stat">Cooldown: 1 turno</span>
+            <span class="skill-stat">Dano: 2x 60%</span>
+        </div>
+        <p>Dois tiros rapidos. Dano total: 120%.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>2. Olho de Aguia (Nivel 2)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 20 MP</span>
+            <span class="skill-stat">Cooldown: 4 turnos</span>
+        </div>
+        <p>100% critico no proximo ataque. Combine com habilidades fortes.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>3. Armadilha (Nivel 3)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 24 MP</span>
+            <span class="skill-stat">Cooldown: 5 turnos</span>
+        </div>
+        <p>Stun por 1 turno. Bosses: 50% chance apenas.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>4. Chuva de Flechas (Nivel 4)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 35 MP</span>
+            <span class="skill-stat">Cooldown: 5 turnos</span>
+            <span class="skill-stat">Dano: 190%</span>
+        </div>
+        <p>Ignora esquiva. Ataque em area.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>5. Flecha Vampirica (Nivel 5)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 40 MP</span>
+            <span class="skill-stat">Cooldown: 6 turnos</span>
+            <span class="skill-stat">Dano: 150%</span>
+        </div>
+        <p>Roubo vida 100%. Boss: cura reduzida 50%.</p>
+    </div>
+    
+    <h3>🌿 DRUIDA</h3>
+    
+    <div class="skill-card">
+        <h4>1. Chicote de Cipo (Nivel 1)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 12 MP</span>
+            <span class="skill-stat">Cooldown: 2 turnos</span>
+            <span class="skill-stat">Dano: 110%</span>
+        </div>
+        <p>-10% defesa inimigo por 3 turnos. Sinergico.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>2. Pele de Arvore (Nivel 2)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 22 MP</span>
+            <span class="skill-stat">Cooldown: 5 turnos</span>
+            <span class="skill-stat">Duracao: 4 turnos</span>
+        </div>
+        <p>20% reflexao de dano. Reflexao nao pode critar.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>3. Crescimento Exuberante (Nivel 3)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 30 MP</span>
+            <span class="skill-stat">Cooldown: 6 turnos</span>
+            <span class="skill-stat">Duracao: 5 turnos</span>
+        </div>
+        <p>6% HP/turno. Floresta: +50% bonus. Regeneracao poderosa.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>4. Forma de Urso (Nivel 4)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 35 MP</span>
+            <span class="skill-stat">Cooldown: 7 turnos</span>
+            <span class="skill-stat">Duracao: 4 turnos</span>
+        </div>
+        <p>+35% HP max, +60% Defesa, -20% Velocidade. Transformacao poderosa.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>5. Forca da Natureza (Nivel 5)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 45 MP</span>
+            <span class="skill-stat">Cooldown: 7 turnos</span>
+            <span class="skill-stat">Dano: 250%</span>
+        </div>
+        <p>Impede fuga do inimigo. Ultimate devastador.</p>
+    </div>
+    
+    <h3>💀 NECROMANTE</h3>
+    
+    <div class="skill-card">
+        <h4>1. Toque Sombrio (Nivel 1)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 10 MP</span>
+            <span class="skill-stat">Cooldown: 2 turnos</span>
+            <span class="skill-stat">Dano: 90%</span>
+        </div>
+        <p>-15% dano do alvo por 3 turnos. Ataque que enfraquece.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>2. Erguer Esqueleto (Nivel 2)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 25 MP</span>
+            <span class="skill-stat">Cooldown: 6 turnos</span>
+            <span class="skill-stat">Duracao: 4 turnos</span>
+        </div>
+        <p>Invocacao temporaria (35% INT dano/turno). Nao permanente.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>3. Maldicao (Nivel 3)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 30 MP</span>
+            <span class="skill-stat">Cooldown: 7 turnos</span>
+            <span class="skill-stat">Duracao: 3 turnos</span>
+        </div>
+        <p>+50% dano recebido pelo alvo. Bosses: 25% apenas.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>4. Sacrificio (Nivel 4)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 15 MP + 20% HP atual</span>
+            <span class="skill-stat">Cooldown: 4 turnos</span>
+        </div>
+        <p>Dano: 3x o valor do HP sacrificado. Nunca mata o jogador.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>5. Colheita de Almas (Nivel 5)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 45 MP</span>
+            <span class="skill-stat">Cooldown: 8 turnos</span>
+        </div>
+        <p>Condicao: matar o alvo. 100% mana + 50% HP recuperados.</p>
+    </div>
+    
+    <h3>👊 MONGE</h3>
+    
+    <div class="skill-card">
+        <h4>1. Palma de Ferro (Nivel 1)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 10 MP</span>
+            <span class="skill-stat">Cooldown: 1 turno</span>
+            <span class="skill-stat">Dano: 120%</span>
+        </div>
+        <p>Ignora armadura 100%. Ataque consistente.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>2. Meditacao (Nivel 2)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 0 MP</span>
+            <span class="skill-stat">Cooldown: 4 turnos</span>
+        </div>
+        <p>+20% HP + 20% Mana. Perde o turno. Recupera recursos.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>3. Chute Relampago (Nivel 3)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 30 MP</span>
+            <span class="skill-stat">Cooldown: 6 turnos</span>
+            <span class="skill-stat">Dano: 90%</span>
+        </div>
+        <p>Turno extra! Maximo 1 turno extra por rodada. Combo!</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>4. Desviar Projeteis (Nivel 4)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 20 MP</span>
+            <span class="skill-stat">Cooldown: 5 turnos</span>
+            <span class="skill-stat">Duracao: 1 turno</span>
+        </div>
+        <p>Bloqueia proximo ataque. Use contra ataques fortes.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>5. Golpe do Ponto Vital (Nivel 5)</h4>
+        <div class="skill-stats">
+            <span class="skill-stat">Custo: 45 MP</span>
+            <span class="skill-stat">Cooldown: 8 turnos</span>
+            <span class="skill-stat">Dano: 180%</span>
+        </div>
+        <p>Resistencia 0. Stagger instantaneo. Bosses: apenas 70% stagger. Ignora tudo.</p>
+    </div>
+</div>
+
+<!-- CAPITULO 5: COMBATE -->
+<div class="chapter" id="combate">
+    <div class="chapter-header">
+        <div class="chapter-number">Capitulo V</div>
+        <h2>SISTEMA DE COMBATE</h2>
+    </div>
+    
+    <h3>Fluxo de Combate</h3>
+    <p>O combate e por turnos. Cada turno segue esta ordem:</p>
+    <ol>
+        <li><strong>Turno do Jogador</strong> - Escolha uma acao</li>
+        <li><strong>Turno do Inimigo</strong> - IA do inimigo age</li>
+        <li><strong>Processamento de Efeitos</strong> - Buffs/debuffs sao processados</li>
+        <li><strong>Atualizacao de Cooldowns</strong> - Habilidades recuperam uso</li>
+    </ol>
+    
+    <h3>Acoes do Jogador</h3>
+    <table>
+        <tr><th>Acao</th><th>Descricao</th></tr>
+        <tr><td>[1] Atacar</td><td>Ataque basico com arma. Sem custo, sem cooldown. Reduz durabilidade em 1.</td></tr>
+        <tr><td>[2] Habilidades</td><td>Sub-menu com habilidades desbloqueadas. Cada uma tem custo e cooldown.</td></tr>
+        <tr><td>[3] Itens</td><td>Inventario de itens utilizaveis. Pocoes, comida, consumiveis.</td></tr>
+        <tr><td>[4] Fugir</td><td>Chance baseada em Agilidade. Comum: 50%+AGI. Boss: 20%.</td></tr>
+    </table>
+    
+    <h3>Barra de Stagger</h3>
+    <div class="info-box">
+        <h4>⚠ Importante</h4>
+        <p>Cada inimigo tem uma barra de Stagger (Atordoamento):</p>
+        <ul>
+            <li><strong>Stagger Maximo:</strong> 25% do HP maximo do inimigo</li>
+            <li><strong>Aplicar Stagger:</strong> Habilidades e ataques reduzem a barra</li>
+            <li><strong>Quando chega a 0:</strong> Inimigo pula o turno e recebe dano critico</li>
+            <li><strong>Recuperacao:</strong> +10% por turno</li>
+        </ul>
+        <p>Contra bosses, o stagger e reduzido para 25% do valor normal!</p>
+    </div>
+    
+    <h3>Durabilidade da Arma</h3>
+    <table>
+        <tr><th>Acao</th><th>Perda de Durabilidade</th></tr>
+        <tr><td>Ataque basico</td><td>-1</td></tr>
+        <tr><td>Ataque critico</td><td>-2</td></tr>
+        <tr><td>Habilidade pesada</td><td>-3</td></tr>
+    </table>
+    <p><strong>Durabilidade 0:</strong> Dano cai 90%! Reparo custa (durabilidade perdida * 0.5) em ouro.</p>
+    
+    <h3>Tipos de Inimigos</h3>
+    <table>
+        <tr><th>Tipo</th><th>HP</th><th>ATQ</th><th>DEF</th><th>XP</th><th>Loot</th></tr>
+        <tr><td>Comum</td><td>1.0x</td><td>1.0x</td><td>1.0x</td><td>1.0x</td><td>1.0x</td></tr>
+        <tr><td>Elite</td><td>2.2x</td><td>1.5x</td><td>1.4x</td><td>2.5x</td><td>+35%</td></tr>
+        <tr><td>Boss</td><td>5.0x</td><td>2.2x</td><td>1.8x</td><td>5.0x</td><td>+100%</td></tr>
+    </table>
+    
+    <h3>Formula de HP dos Inimigos</h3>
+    <pre><code>HP = 50 + (nivel * 22) + (nivel^2 * 2)</code></pre>
+    <table>
+        <tr><th>Nivel</th><th>HP Comum</th><th>HP Elite</th><th>HP Boss</th></tr>
+        <tr><td>1</td><td>74</td><td>163</td><td>370</td></tr>
+        <tr><td>5</td><td>210</td><td>462</td><td>1050</td></tr>
+        <tr><td>10</td><td>470</td><td>1034</td><td>2350</td></tr>
+        <tr><td>20</td><td>1290</td><td>2838</td><td>6450</td></tr>
+        <tr><td>50</td><td>6150</td><td>13530</td><td>30750</td></tr>
+    </table>
+</div>
+
+<!-- CAPITULO 6: ELEMENTAL -->
+<div class="chapter" id="elemental">
+    <div class="chapter-header">
+        <div class="chapter-number">Capitulo VI</div>
+        <h2>SISTEMA ELEMENTAL</h2>
+    </div>
+    
+    <h3>Tabela de Fraquezas</h3>
+    <table>
+        <tr><th>Elemento</th><th>Forte Contra</th><th>Fraco Contra</th></tr>
+        <tr><td>🔥 Fogo</td><td>Gelo</td><td>Terra</td></tr>
+        <tr><td> Gelo</td><td>Terra</td><td>Fogo</td></tr>
+        <tr><td>🌍 Terra</td><td>Fogo</td><td>Gelo</td></tr>
+        <tr><td>✨ Luz</td><td>Trevas</td><td>Trevas</td></tr>
+        <tr><td>💀 Trevas</td><td>Luz</td><td>Luz</td></tr>
+        <tr><td>⚡ Raio</td><td>-</td><td>-</td></tr>
+    </table>
+    
+    <h3>Multiplicadores</h3>
+    <table>
+        <tr><th>Situacao</th><th>Multiplicador</th></tr>
+        <tr><td>Fraqueza</td><td>2.0x dano</td></tr>
+        <tr><td>Resistencia</td><td>0.5x dano</td></tr>
+        <tr><td>Neutro</td><td>1.0x dano</td></tr>
+    </table>
+    
+    <div class="info-box tip">
+        <h4>💡 Dica Elemental</h4>
+        <p>Sempre explore fraquezas elementais! Um ataque elemental fraco pode ser tao eficaz quanto um ataque forte neutro.</p>
+    </div>
+</div>
+
+<!-- CAPITULO 7: BUFFS/DEBUFFS -->
+<div class="chapter" id="buffs">
+    <div class="chapter-header">
+        <div class="chapter-number">Capitulo VII</div>
+        <h2>SISTEMA DE BUFFS E DEBUFFS</h2>
+    </div>
+    
+    <h3>Buffs (Efeitos Positivos)</h3>
+    
+    <div class="skill-card">
+        <h4>❤ Regeneracao</h4>
+        <p><strong>Tipo:</strong> Cura Continua</p>
+        <p>Recupera % do HP maximo por turno. Floresta +50%, Queimadura -50%.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>🛡 Escudo</h4>
+        <p><strong>Tipo:</strong> Barreira Protetora</p>
+        <p>Absorve dano antes do HP. Escudos iguais renovam, nao acumulam.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4> Furia</h4>
+        <p><strong>Tipo:</strong> Amplificador de Ataque</p>
+        <p>+40% dano fisico, -20% defesa. Vida <30% aumenta efeito.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>💨 Velocidade</h4>
+        <p><strong>Tipo:</strong> Manipulacao de Turnos</p>
+        <p>+25 AGI, +15% esquiva. Maximo 1 turno extra por rodada.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4> Invisibilidade</h4>
+        <p><strong>Tipo:</strong> Ocultacao</p>
+        <p>100% evasao por 1 turno. Quebra ao atacar. Primeiro golpe = critico.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>🧪 Resistencia Elemental</h4>
+        <p><strong>Tipo:</strong> Resistencia Defensiva</p>
+        <p>-50% dano de elemento especifico.</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>🩸 Vampirismo</h4>
+        <p><strong>Tipo:</strong> Roubo de Vida</p>
+        <p>20-35% do dano retorna como HP.</p>
+    </div>
+    
+    <h3>Debuffs (Efeitos Negativos)</h3>
+    
+    <table>
+        <tr><th>Debuff</th><th>Efeito</th><th>Duracao</th><th>Notas</th></tr>
+        <tr><td> Queimadura</td><td>3-5% HP max/turno</td><td>3-5 turnos</td><td>Reduz regeneracao</td></tr>
+        <tr><td>☠ Veneno</td><td>4% HP atual/turno</td><td>5 turnos</td><td>Boss: apenas 1%</td></tr>
+        <tr><td> Sangramento</td><td>6% HP atual/turno</td><td>3 turnos</td><td>-</td></tr>
+        <tr><td>❄ Congelamento</td><td>-40% velocidade</td><td>3 turnos</td><td>-</td></tr>
+        <tr><td>💀 Maldicao</td><td>+50% dano recebido</td><td>3 turnos</td><td>Boss: 25%</td></tr>
+    </table>
+    
+    <h3>Limites de Buffs</h3>
+    <table>
+        <tr><th>Tipo</th><th>Maximo</th></tr>
+        <tr><td>Buffs simultaneos</td><td>10</td></tr>
+        <tr><td>Debuffs iguais acumulados</td><td>3</td></tr>
+        <tr><td>Duracao maxima</td><td>999 turnos</td></tr>
+    </table>
+    
+    <h3>Exibicao na HUD</h3>
+    <pre><code>BUFFS:
+[Furia: 2T]
+[Escudo: 50]
+[Regeneracao: 3T]
+
+DEBUFFS:
+[Veneno: 4T]
+[Queimadura: 2T]</code></pre>
+</div>
+
+<!-- CAPITULO 8: INVENTARIO -->
+<div class="chapter" id="inventario">
+    <div class="chapter-header">
+        <div class="chapter-number">Capitulo VIII</div>
+        <h2>SISTEMA DE INVENTARIO</h2>
+    </div>
+    
+    <h3>Estrutura do Inventario</h3>
+    <table>
+        <tr><th>Propriedade</th><th>Valor</th></tr>
+        <tr><td>Slots Maximos</td><td>30</td></tr>
+        <tr><td>Peso Maximo</td><td>30 + (Forca * 1.5)</td></tr>
+    </table>
+    
+    <h3>Estados de Peso</h3>
+    <table>
+        <tr><th>Estado</th><th>Peso</th><th>Penalidade</th></tr>
+        <tr><td>Leve</td><td>0-50%</td><td>Nenhuma</td></tr>
+        <tr><td>Medio</td><td>51-80%</td><td>-10% velocidade</td></tr>
+        <tr><td>Pesado</td><td>81-99%</td><td>-25% velocidade, -15% esquiva</td></tr>
+        <tr><td>Sobrecarregado</td><td>100%+</td><td>-50% velocidade, sem esquiva, sem fuga</td></tr>
+    </table>
+    
+    <h3>Categorias de Itens</h3>
+    <ol>
+        <li><strong>Consumiveis</strong> - Pocoes, comida, elixires, bombas</li>
+        <li><strong>Equipamentos</strong> - Armas, armaduras, acessorios</li>
+        <li><strong>Materiais</strong> - Couro, ferro, ossos, cristais</li>
+        <li><strong>Itens de Quest</strong> - Chaves, reliquias, artefatos</li>
+        <li><strong>Itens Especiais</strong> - Runas, gemas, fragmentos</li>
+    </ol>
+    
+    <h3>Raridades</h3>
+    <table>
+        <tr><th>Raridade</th><th>Chance</th><th>Venda</th></tr>
+        <tr><td>⚪ Comum</td><td>60%</td><td>30%</td></tr>
+        <tr><td>🟢 Incomum</td><td>25%</td><td>40%</td></tr>
+        <tr><td>🔵 Raro</td><td>10%</td><td>50%</td></tr>
+        <tr><td>🟣 Epico</td><td>4%</td><td>60%</td></tr>
+        <tr><td> Lendario</td><td>0.9%</td><td>70%</td></tr>
+        <tr><td>🔴 Mitico</td><td>0.1%</td><td>80%</td></tr>
+    </table>
+    
+    <h3>Empilhamento</h3>
+    <ul>
+        <li>Consumiveis e materiais empilham (max 10 por pilha)</li>
+        <li>Equipamentos e itens unicos nao empilham</li>
+        <li>Itens empilhados ocupam 1 slot</li>
+    </ul>
+</div>
+
+<!-- CAPITULO 9: SOBREVIVENCIA -->
+<div class="chapter" id="sobrevivencia">
+    <div class="chapter-header">
+        <div class="chapter-number">Capitulo IX</div>
+        <h2>SISTEMA DE SOBREVIVENCIA</h2>
+    </div>
+    
+    <h3>Ciclo Dia/Noite</h3>
+    <p><strong>Mudanca:</strong> A cada 5 acoes</p>
+    
+    <table>
+        <tr><th>Aspecto</th><th>Dia</th><th>Noite</th></tr>
+        <tr><td>Dano Inimigo</td><td>Normal</td><td>+30%</td></tr>
+        <tr><td>XP Ganho</td><td>Normal</td><td>+50%</td></tr>
+        <tr><td>Preco Pocoes</td><td>Normal</td><td>+25%</td></tr>
+        <tr><td>Preco Trevas</td><td>Normal</td><td>-20%</td></tr>
+        <tr><td>Mercador Negro</td><td>Indisponivel</td><td>Disponivel</td></tr>
+    </table>
+    
+    <h3>Sistema de Fome</h3>
+    <table>
+        <tr><th>Valor</th><th>Estado</th><th>Efeito</th></tr>
+        <tr><td>100-51</td><td>Normal</td><td>Sem penalidades</td></tr>
+        <tr><td>50-26</td><td>Faminto</td><td>-5% atributos</td></tr>
+        <tr><td>25-11</td><td>Muito Faminto</td><td>-15% atributos</td></tr>
+        <tr><td>10-1</td><td>Critico</td><td>-35% atributos</td></tr>
+        <tr><td>0</td><td>Exausto</td><td>-50% atributos</td></tr>
+    </table>
+    
+    <h3>Consumo de Fome</h3>
+    <table>
+        <tr><th>Acao</th><th>Fome</th></tr>
+        <tr><td>Combate</td><td>-4</td></tr>
+        <tr><td>Exploracao</td><td>-2</td></tr>
+        <tr><td>Dormir</td><td>+20</td></tr>
+        <tr><td>Pao Velho</td><td>+15</td></tr>
+        <tr><td>Racao de Viagem</td><td>+60</td></tr>
+    </table>
+</div>
+
+<!-- CAPITULO 10: LOJA -->
+<div class="chapter" id="loja">
+    <div class="chapter-header">
+        <div class="chapter-number">Capitulo X</div>
+        <h2>LOJA E ECONOMIA</h2>
+    </div>
+    
+    <h3>Consumiveis</h3>
+    <table>
+        <tr><th>Item</th><th>Preco</th><th>Efeito</th><th>Nivel</th></tr>
+        <tr><td>Pao Velho</td><td>10g</td><td>+15 Fome</td><td>1</td></tr>
+        <tr><td>Racao de Viagem</td><td>35g</td><td>+60 Fome</td><td>1</td></tr>
+        <tr><td>Pocao de Vida P</td><td>25g</td><td>+30 HP</td><td>1</td></tr>
+        <tr><td>Pocao de Mana P</td><td>25g</td><td>+30 MP</td><td>1</td></tr>
+        <tr><td>Elixir de Adrenalina</td><td>50g</td><td>+20 Stamina</td><td>1</td></tr>
+        <tr><td>Pocao de Vida M</td><td>60g</td><td>+80 HP</td><td>3</td></tr>
+        <tr><td>Pocao de Mana M</td><td>60g</td><td>+80 MP</td><td>3</td></tr>
+    </table>
+    
+    <h3>Itens Especiais</h3>
+    <table>
+        <tr><th>Item</th><th>Preco</th><th>Efeito</th><th>Nivel</th></tr>
+        <tr><td>Pedra de Amolar</td><td>80g</td><td>Repara arma 100%</td><td>2</td></tr>
+        <tr><td>Bomba de Luz</td><td>120g</td><td>Stun 1 turno</td><td>3</td></tr>
+        <tr><td>Amuleto da Sorte</td><td>300g</td><td>+30% drop ouro</td><td>4</td></tr>
+        <tr><td>Coracao de Fenix</td><td>750g</td><td>Revive 20% HP</td><td>5</td></tr>
+    </table>
+    
+    <h3>Mercador Negro (Apenas Noite)</h3>
+    <table>
+        <tr><th>Item</th><th>Preco</th><th>Efeito</th><th>Nivel</th></tr>
+        <tr><td>Sangue de Demonio</td><td>150g</td><td>+50% ATK, -5 HP/turno</td><td>3</td></tr>
+        <tr><td>Capa de Invisibilidade</td><td>400g</td><td>Fuga 100%</td><td>4</td></tr>
+        <tr><td>Peraminho Proibido</td><td>1000g</td><td>Reseta cooldowns</td><td>5</td></tr>
+    </table>
+    
+    <h3>Ferreiro - Refino de Arma</h3>
+    <table>
+        <tr><th>Nivel</th><th>Custo</th><th>Bonus</th></tr>
+        <tr><td>+1</td><td>100g</td><td>+10% Dano</td></tr>
+        <tr><td>+2</td><td>250g</td><td>+25% Dano</td></tr>
+        <tr><td>+3</td><td>500g</td><td>+40% Dano + Bonus Elemental</td></tr>
+        <tr><td>+4</td><td>1000g</td><td>+60% Dano</td></tr>
+        <tr><td>+5</td><td>2500g</td><td>Dobra dano + Inquebravel</td></tr>
+    </table>
+    
+    <h3>Sistema de Reputacao</h3>
+    <ul>
+        <li>A cada 500g gastos: +5% desconto permanente</li>
+        <li>Desconto maximo: 20%</li>
+        <li>Acumulativo ate o limite</li>
+    </ul>
+    
+    <h3>Inflacao Noturna</h3>
+    <ul>
+        <li>Consumiveis: +25% mais caros a noite</li>
+        <li>Itens de Trevas: -20% mais baratos a noite</li>
+    </ul>
+</div>
+
+<!-- CAPITULO 11: EXPLORACAO -->
+<div class="chapter" id="exploracao">
+    <div class="chapter-header">
+        <div class="chapter-number">Capitulo XI</div>
+        <h2>EXPLORACAO E MAPA</h2>
+    </div>
+    
+    <h3>Geracao de Mapa</h3>
+    <p>Os mapas sao gerados proceduralmente com:</p>
+    <ul>
+        <li>Caminhos aleatorios</li>
+        <li>Inimigos distribuidos</li>
+        <li>Baus com loot</li>
+        <li>Lojas e ferreiros</li>
+        <li>Saidas para proximo mapa</li>
+        <li>Arvores com recursos</li>
+    </ul>
+    
+    <h3>Interacoes no Mapa</h3>
+    <table>
+        <tr><th>Encontro</th><th>Resultado</th></tr>
+        <tr><td>Inimigo (E)</td><td>Combate</td></tr>
+        <tr><td>Bau (B)</td><td>Loot aleatorio</td></tr>
+        <tr><td>Loja (L)</td><td>Abre loja</td></tr>
+        <tr><td>Saida (S)</td><td>Proximo mapa</td></tr>
+        <tr><td>Arvore (T)</td><td>Chance de recursos</td></tr>
+        <tr><td>Caminho vazio</td><td>Chance de evento</td></tr>
+    </table>
+    
+    <h3>Chances de Encontro</h3>
+    <table>
+        <tr><th>Evento</th><th>Chance</th></tr>
+        <tr><td>Combate</td><td>45%</td></tr>
+        <tr><td>Loot</td><td>20%</td></tr>
+        <tr><td>NPC/Mercador</td><td>10%</td></tr>
+        <tr><td>Armadilha</td><td>10%</td></tr>
+        <tr><td>Quest</td><td>10%</td></tr>
+        <tr><td>Raro</td><td>5%</td></tr>
+    </table>
+</div>
+
+<!-- CAPITULO 12: QUESTS -->
+<div class="chapter" id="quests">
+    <div class="chapter-header">
+        <div class="chapter-number">Capitulo XII</div>
+        <h2>SISTEMA DE QUESTS</h2>
+    </div>
+    
+    <h3>Tipos de Quests</h3>
+    <ol>
+        <li><strong>Caca</strong> - Derrote X inimigos</li>
+        <li><strong>Coleta</strong> - Colete X itens</li>
+        <li><strong>Exploracao</strong> - Visite X areas</li>
+    </ol>
+    
+    <h3>Recompensas</h3>
+    <table>
+        <tr><th>Nivel</th><th>XP</th><th>Ouro</th></tr>
+        <tr><td>1</td><td>40</td><td>25</td></tr>
+        <tr><td>2</td><td>80</td><td>50</td></tr>
+        <tr><td>3</td><td>120</td><td>75</td></tr>
+        <tr><td>4</td><td>160</td><td>100</td></tr>
+        <tr><td>5</td><td>200</td><td>125</td></tr>
+    </table>
+    
+    <h3>Quests Iniciais</h3>
+    <div class="skill-card">
+        <h4>Primeiros Passos</h4>
+        <p><strong>Objetivo:</strong> Derrote 3 inimigos</p>
+        <p><strong>Recompensa:</strong> 50 XP, 30g</p>
+    </div>
+    
+    <div class="skill-card">
+        <h4>Cacador de Goblins</h4>
+        <p><strong>Objetivo:</strong> Derrote 5 goblins</p>
+        <p><strong>Recompensa:</strong> 100 XP, 60g</p>
+    </div>
+</div>
+
+<!-- CAPITULO 13: EVENTOS -->
+<div class="chapter" id="eventos">
+    <div class="chapter-header">
+        <div class="chapter-number">Capitulo XIII</div>
+        <h2>EVENTOS ALEATORIOS</h2>
+    </div>
+    
+    <table>
+        <tr><th>Evento</th><th>Descricao</th><th>Chance</th></tr>
+        <tr><td>Emboscada</td><td>Combate surpresa</td><td>45%</td></tr>
+        <tr><td>Bau Encontrado</td><td>Loot gratis</td><td>20%</td></tr>
+        <tr><td>Mercador Ambulante</td><td>Loja temporaria</td><td>10%</td></tr>
+        <tr><td>Armadilha</td><td>Dano automatico</td><td>10%</td></tr>
+        <tr><td>Missao</td><td>Nova quest</td><td>10%</td></tr>
+        <tr><td>Fonte Misteriosa</td><td>Cura completa</td><td>5%</td></tr>
+    </table>
+</div>
+
+<!-- CAPITULO 14: SAVE -->
+<div class="chapter" id="save">
+    <div class="chapter-header">
+        <div class="chapter-number">Capitulo XIV</div>
+        <h2>SAVE SYSTEM</h2>
+    </div>
+    
+    <h3>Como Salvar</h3>
+    <ol>
+        <li>Acesse [6] Salvar no menu principal</li>
+        <li>Anote o codigo gerado</li>
+        <li>Ao iniciar o jogo, use [2] Carregar Jogo</li>
+        <li>Digite o codigo anotado</li>
+    </ol>
+    
+    <h3>Formato do Save Code</h3>
+    <p>O save code contem:</p>
+    <ul>
+        <li>Nome do jogador</li>
+        <li>Classe</li>
+        <li>Nivel</li>
+        <li>XP</li>
+        <li>Ouro</li>
+        <li>Atributos</li>
+        <li>Nivel de refino da arma</li>
+        <li>Durabilidade</li>
+        <li>Fome</li>
+    </ul>
+    
+    <h3>Salvamento Automatico</h3>
+    <ul>
+        <li>Ao subir de nivel</li>
+        <li>Ao sair do jogo (manual)</li>
+    </ul>
+</div>
+
+<!-- CAPITULO 15: DICAS -->
+<div class="chapter" id="dicas">
+    <div class="chapter-header">
+        <div class="chapter-number">Capitulo XV</div>
+        <h2>DICAS E ESTRATEGIAS</h2>
+    </div>
+    
+    <h3>Dicas para Iniciantes</h3>
+    <div class="info-box tip">
+        <ul>
+            <li><strong>Sempre leve comida</strong> - A fome e real e perigosa</li>
+            <li><strong>Repare sua arma</strong> - Arma quebrada = 90% menos dano</li>
+            <li><strong>Explore fraquezas elementais</strong> - 2x dano faz diferenca</li>
+            <li><strong>Use buffs com timing</strong> - Nao desperdice cooldowns</li>
+            <li><strong>Gerencie seu inventario</strong> - Peso excessivo e perigoso</li>
+        </ul>
+    </div>
+    
+    <h3>Estrategias por Classe</h3>
+    
+    <h4>⚔ Guerreiro</h4>
+    <ul>
+        <li>Use Postura Defensiva antes de receber dano pesado</li>
+        <li>Grito de Guerra + Golpe Pesado = combo forte</li>
+        <li>Execucao apenas quando inimigo <30% HP</li>
+    </ul>
+    
+    <h4> Mago</h4>
+    <ul>
+        <li>Escudo Arcano antes de combates longos</li>
+        <li>Nevasca reduz precisao do inimigo</li>
+        <li>Tempestade + Choque = dano extra</li>
+    </ul>
+    
+    <h4>🗡 Ladino</h4>
+    <ul>
+        <li>Punhalada + Olho de Aguia = critico garantido 2x</li>
+        <li>Esquiva antes de ataques fortes</li>
+        <li>Veneno e forte contra inimigos comuns</li>
+    </ul>
+    
+    <h4>✨ Paladino</h4>
+    <ul>
+        <li>Aura de Protecao no inicio do combate</li>
+        <li>Cura Sagrada quando HP <50%</li>
+        <li>Julgamento para enfraquecer bosses</li>
+    </ul>
+    
+    <h4>🏹 Arqueiro</h4>
+    <ul>
+        <li>Olho de Aguia + Chuva de Flechas = burst</li>
+        <li>Armadilha para pular turno do inimigo</li>
+        <li>Flecha Vampirica para sustain</li>
+    </ul>
+    
+    <h4>🌿 Druida</h4>
+    <ul>
+        <li>Crescimento Exuberante em florestas = +50%</li>
+        <li>Forma de Urso para tankar bosses</li>
+        <li>Chicote de Cipo reduz defesa antes de ataques</li>
+    </ul>
+    
+    <h4>💀 Necromante</h4>
+    <ul>
+        <li>Toque Sombrio + Maldicao = dano amplificado</li>
+        <li>Sacrificio quando HP alto = dano massivo</li>
+        <li>Colheita de Almas para recuperar recursos</li>
+    </ul>
+    
+    <h4> Monge</h4>
+    <ul>
+        <li>Meditacao para recuperar recursos</li>
+        <li>Chute Relampago para combos</li>
+        <li>Desviar Projeteis contra ataques fortes</li>
+    </ul>
+    
+    <h3>Dicas de Economia</h3>
+    <div class="info-box">
+        <ul>
+            <li><strong>Compre Pocoes P no nivel 1</strong> - Sao mais eficientes</li>
+            <li><strong>Economize para refino +3</strong> - Bonus elemental vale a pena</li>
+            <li><strong>Venda itens comuns</strong> - 30% do valor e melhor que nada</li>
+            <li><strong>Aumente reputacao</strong> - 20% de desconto e significativo</li>
+        </ul>
+    </div>
+    
+    <h3>Dicas de Combate</h3>
+    <div class="info-box warning">
+        <ul>
+            <li><strong>Stagger antes de habilidades fortes</strong> - Dano critico garantido</li>
+            <li><strong>Buff antes de atacar</strong> - Furia + ataque = dano amplificado</li>
+            <li><strong>Fuja se HP critico</strong> - Melhor viver para lutar outro dia</li>
+            <li><strong>Use itens no momento certo</strong> - Pocoes durante combate salvam</li>
+        </ul>
+    </div>
+</div>
+
+<!-- CAPITULO 16: TABELAS -->
+<div class="chapter" id="tabelas">
+    <div class="chapter-header">
+        <div class="chapter-number">Capitulo XVI</div>
+        <h2>TABELAS DE REFERENCIA</h2>
+    </div>
+    
+    <h3>Progressao de XP</h3>
+    <table>
+        <tr><th>Nivel</th><th>XP Necessario</th><th>HP Base</th><th>Mana Base</th></tr>
+        <tr><td>1</td><td>100</td><td>175</td><td>90</td></tr>
+        <tr><td>2</td><td>145</td><td>199</td><td>108</td></tr>
+        <tr><td>3</td><td>210</td><td>226</td><td>126</td></tr>
+        <tr><td>4</td><td>305</td><td>256</td><td>144</td></tr>
+        <tr><td>5</td><td>442</td><td>289</td><td>162</td></tr>
+        <tr><td>10</td><td>2810</td><td>475</td><td>270</td></tr>
+        <tr><td>20</td><td>7700</td><td>775</td><td>450</td></tr>
+        <tr><td>50</td><td>28900</td><td>1475</td><td>810</td></tr>
+    </table>
+    
+    <h3>Limites Globais</h3>
+    <table>
+        <tr><th>Sistema</th><th>Limite</th></tr>
+        <tr><td>Reducao de Dano</td><td>80%</td></tr>
+        <tr><td>Critico</td><td>80%</td></tr>
+        <tr><td>Esquiva</td><td>75%</td></tr>
+        <tr><td>Roubo de Vida</td><td>50%</td></tr>
+        <tr><td>Regeneracao</td><td>15% HP/turno</td></tr>
+        <tr><td>Turno Extra</td><td>1 por rodada</td></tr>
+        <tr><td>Stun</td><td>Maximo 2 turnos</td></tr>
+        <tr><td>Debuff Amplificador</td><td>+50%</td></tr>
+    </table>
+    
+    <h3>Escala de Poder de Habilidades</h3>
+    <table>
+        <tr><th>Tipo</th><th>Multiplicador</th><th>Cooldown</th></tr>
+        <tr><td>Basica</td><td>100-140%</td><td>1</td></tr>
+        <tr><td>Media</td><td>150-200%</td><td>2-3</td></tr>
+        <tr><td>Forte</td><td>220-280%</td><td>4-5</td></tr>
+        <tr><td>Ultimate</td><td>300%+</td><td>6-8</td></tr>
+    </table>
+    
+    <h3>Durabilidade</h3>
+    <table>
+        <tr><th>Acao</th><th>Perda</th></tr>
+        <tr><td>Ataque basico</td><td>-1</td></tr>
+        <tr><td>Ataque critico</td><td>-2</td></tr>
+        <tr><td>Habilidade pesada</td><td>-3</td></tr>
+    </table>
+</div>
+
+<!-- CAPITULO 17: CURIOSIDADES -->
+<div class="chapter" id="curiosidades">
+    <div class="chapter-header">
+        <div class="chapter-number">Capitulo XVII</div>
+        <h2>CURIOSIDADES</h2>
+    </div>
+    
+    <h3>Fatos sobre o Jogo</h3>
+    <ol>
+        <li><strong>Desenvolvido em Portugol Studio</strong> - Todo o codigo e em Portugol, uma linguagem de programacao educacional brasileira.</li>
+        <li><strong>40 Habilidades Unicas</strong> - Cada classe tem 5 habilidades com identidades distintas.</li>
+        <li><strong>Balanceamento Profissional</strong> - O jogo segue formulas matematicas precisas para evitar power creep.</li>
+        <li><strong>Mapas Infinitos</strong> - Cada mapa e gerado proceduralmente, nunca jogando o mesmo mapa duas vezes.</li>
+        <li><strong>Economia Controlada</strong> - O jogo usa formulas de inflacao e reputacao para manter a economia balanceada.</li>
+        <li><strong>IA dos Inimigos</strong> - Inimigos usam estrategias como curar quando HP baixo e explorar fraquezas.</li>
+        <li><strong>Sistema de Stagger</strong> - Inspirado em jogos como Dark Souls, o stagger permite controle de combate.</li>
+        <li><strong>8 Classes com Identidade</strong> - Cada classe tem um estilo de jogo unico e habilidades que definem sua identidade.</li>
+    </ol>
+    
+    <h3>Segredos</h3>
+    <div class="info-box">
+        <ul>
+            <li><strong>Mercador Negro:</strong> Aparece apenas a noite com itens proibidos</li>
+            <li><strong>Fonte Misteriosa:</strong> 5% de chance em eventos - cura completa!</li>
+            <li><strong>Coracao de Fenix:</strong> Item mais raro do jogo - revive ao morrer</li>
+            <li><strong>Refino +5:</strong> Torna a arma inquebravel e dobra o dano</li>
+        </ul>
+    </div>
+    
+    <h3>Estatisticas do Jogo</h3>
+    <table>
+        <tr><th>Aspecto</th><th>Valor</th></tr>
+        <tr><td>Total de Linhas de Codigo</td><td>~3000+</td></tr>
+        <tr><td>Bibliotecas Usadas</td><td>Util, Matematica, Tipos</td></tr>
+        <tr><td>Classes</td><td>8</td></tr>
+        <tr><td>Habilidades</td><td>40</td></tr>
+        <tr><td>Tipos de Inimigos</td><td>10+</td></tr>
+        <tr><td>Raridades de Itens</td><td>6</td></tr>
+        <tr><td>Elementos</td><td>6</td></tr>
+    </table>
+    
+    <blockquote>
+        "A melhor habilidade nao e a mais forte, mas a que cria decisoes, muda combates, possui timing, custo e risco. Isso e balanceamento profissional."
+    </blockquote>
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    <div class="ornament">⚔ 🛡 </div>
+    <h3>SOMBRAS DE VALDORIA</h3>
+    <p>RPG de Texto Profissional</p>
+    <p>Desenvolvido em Portugol Studio</p>
+    <p>Versao 1.0</p>
+    <div class="ornament" style="margin-top: 2rem;">⚔ 🛡 </div>
+</div>
+
+</body>
+</html>
